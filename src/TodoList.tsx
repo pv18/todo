@@ -4,6 +4,7 @@ import Button from './Button';
 import {FilterValuesType, TaskType} from './App';
 import Task from './Task';
 import {AddItemForm} from './AddItemForm';
+import {ButtonBlock} from './ButtonBlock';
 
 type TodoListPropsType = {
     id: string
@@ -37,11 +38,10 @@ const TodoList = (props: TodoListPropsType) => {
         )
     })
 
-    const setAllFilter = () => props.changeFilter('all', props.id)
-    const setActiveFilter = () => props.changeFilter('active', props.id)
-    const setCompletedFilter = () => props.changeFilter('completed', props.id)
     const addTask = (title: string) => props.addTask(title, props.id)
     const removeTodoList = () => props.removeTodoList(props.id)
+    const setFilterValue = (filter:FilterValuesType) =>
+        () =>  props.changeFilter(filter, props.id)
 
     return (
         <div>
@@ -50,23 +50,7 @@ const TodoList = (props: TodoListPropsType) => {
             <ul>
                 {tasksComponents}
             </ul>
-            <div>
-                <Button
-                    active={props.filter === 'all'}
-                    title={'All'}
-                    onClickHandler={setAllFilter}
-                />
-                <Button
-                    active={props.filter === 'active'}
-                    title={'Active'}
-                    onClickHandler={setActiveFilter}
-                />
-                <Button
-                    active={props.filter === 'completed'}
-                    title={'Completed'}
-                    onClickHandler={setCompletedFilter}
-                />
-            </div>
+           <ButtonBlock filter={props.filter} setFilterValue={setFilterValue}/>
         </div>
     );
 };
