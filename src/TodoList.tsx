@@ -1,6 +1,5 @@
-import React, {useState, KeyboardEvent, ChangeEvent} from 'react';
+import React from 'react';
 import TodoListHeader from './TodoListHeader';
-import Button from './Button';
 import {FilterValuesType, TaskType} from './App';
 import Task from './Task';
 import {AddItemForm} from './AddItemForm';
@@ -16,6 +15,7 @@ type TodoListPropsType = {
     addTask: (title: string, todoListID: string) => void
     removeTodoList: (todoListID: string) => void
     changeTaskStatus: (taskID: string, isDone: boolean, todoListID: string) => void
+    changeTaskTitle: (taskID: string, title: string, todoListID: string) => void
 }
 
 const TodoList = (props: TodoListPropsType) => {
@@ -25,6 +25,8 @@ const TodoList = (props: TodoListPropsType) => {
         const removeTask = (taskID: string) => props.removeTask(taskID, props.id)
         const changeTaskStatus = (taskID: string, isDone: boolean) =>
             props.changeTaskStatus(taskID, isDone, props.id)
+        const changeTaskTitle = (taskID: string, title: string) =>
+            props.changeTaskTitle(taskID, title, props.id)
         return (
             <Task
                 key={t.id}
@@ -34,6 +36,7 @@ const TodoList = (props: TodoListPropsType) => {
                 isDone={t.isDone}
                 removeTask={removeTask}
                 changeTaskStatus={changeTaskStatus}
+                changeTaskTitle={changeTaskTitle}
             />
         )
     })

@@ -92,6 +92,21 @@ const App = () => {
             } : t)
         })
     }
+    const changeTaskTitle = (taskID: string, title: string, todoListID: string) => {
+        // const tasksFromTodoList = tasks[todoListID]
+        // const upDatedTasks = tasksFromTodoList.map(t => t.id === taskID ? {...t, isDone}: t)
+        // const copyTasks = {...tasks}
+        // copyTasks[todoListID] = upDatedTasks
+        // setTasks(copyTasks)
+
+        setTasks({
+            ...tasks,
+            [todoListID]: tasks[todoListID].map(t => t.id === taskID ? {
+                ...t,
+                title
+            } : t)
+        })
+    }
     const changeFilter = (filter: FilterValuesType, todoListID: string) => {
         const upDatedTodoLists = todoLists.map(tl => tl.id === todoListID
             ? {...tl, filter: filter}
@@ -139,6 +154,7 @@ const App = () => {
                 addTask={addTask}
                 removeTodoList={removeTodoList}
                 changeTaskStatus={changeTaskStatus}
+                changeTaskTitle={changeTaskTitle}
             />
         )
     })
